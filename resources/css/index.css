@@ -1,0 +1,72 @@
+#title_bar {
+	background: linear-gradient(160deg, rgb(0, 187, 255), pink);
+	color: black;
+	text-align: left;
+	padding: 0.02px;
+	padding-left: 10px;
+}
+
+#top_logo {
+	background-color: rgba(19, 21, 171, 0.77);
+	height: 100px;
+	margin-top: 0px;
+	width: 80px;
+}
+
+#logo {
+	height: 3.125rem;
+	width: 3.125rem;
+}
+
+#topic {
+	width: 400px;
+	height: 300px;
+	overflow: hidden;
+}
+
+#photo {
+	width: 1200px;
+	animation: switch 5s ease-out infinite;
+}
+
+#photo > img {
+	float: left;
+	width: 400px;
+	height: 300px;
+}
+
+@keyframes switch {
+	0%, 20% {
+		margin-left: 0;
+	}
+	30%, 50% {
+		margin-left: -400px;
+	}
+	60%, 80% {
+		margin-left: -800px;
+	}
+	90%, 100% {
+		margin-left: 0px;
+	}
+}
+
+#content{
+	background-color: linen;
+}
+
+#side {
+    line-height:30px;
+    background-color:rgb(64, 89, 121);
+	height: 1000px;
+    width: 80px;
+    float:left;
+    padding:0px;
+}
+
+#activities {
+	background: linear-gradient(160deg, rgb(0, 187, 255), pink);
+	color: black;
+	text-align: left;
+	padding: 0.02px;
+	padding-left: 10px;
+}
