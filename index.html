@@ -4,13 +4,14 @@
 		<meta charset="utf-8" lang="en">
 		<title>shit</title>
 		<link rel="stylesheet" type="text/css" href="resources/css/index.css">
+		<script src="resources/js/index.js"></script>
 	</head>
 	<body id="content">
-		<aside>
+		<aside style="padding: 0px; margin: 0px;">
 			<nav id="side">
-				<div id="top_logo">
-					<h1 style="padding: 0px;">
-						1
+				<div id="top_logo" style="display: flex; justify-content: center; align-items: center;">
+					<h1 style="margin: 0px;">
+						<img id="logo" src="images/logo.png" href="index.html" style="margin-left: 0px;">
 					</h1>
 				</div>
 				<h1>侧边栏</h1>
@@ -18,14 +19,13 @@
 		</aside>
 		<section>
 			<div id="title_bar">
-				<h1 style="font-family: 楷体;"> 
-					<img id="logo" src="images/logo.png" align="absmiddle" href="index.html">
+				<p style="font-size: 30px; font-family: 楷体; font-weight: bold;"> 
 					人大附中亦庄新城学校2024级1班
-				</h1>
+				</p>
 			</div>
 		</section>
-		<div style="display: flex; justify-content: center; align-items: center;">
-			<section style="float: left; padding: 5px; padding-top: 0px;">
+		<div style="display: flex; justify-content: center; align-items: center; background-image: url(images/background.png); background-size: 100%;">
+			<section style="float: left; padding: 0px; padding-top: 0px;margin: 100px;">
 				<div id="topic">
 					<div id="photo">
 						<img id="t" src="images/test1.png">
@@ -33,11 +33,19 @@
 						<img id="t" src="images/test3.png">
 					</div>
 				</div>
-				<div style="padding: 10px;"></div>
-				<div id="activities">
-					<p>shit</p>
-				</div>
 			</section>
 		</div>
+		<section id="activities" style="display: flex; justify-content: center; align-items: center;">
+			<div id="box">
+				<center style="margin: 0px;">
+					<h1 style="font-size: 30px; font-family: 楷体; margin: 5px;">班级简介</h1>
+				</center>
+			</div>
+		</section>
+		<section>
+			<p style="margin-left: 100px; margin-right: 100px;">
+				&nbsp;&nbsp;班级简介
+			</p>
+		</section>
 	</body>
 </html>
