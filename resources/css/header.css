@@ -1,0 +1,8 @@
+header {
+	background: linear-gradient(80deg, rgb(0, 187, 255), rgb(172, 133, 199));;
+	color: #ffffff;
+	text-align: center;
+	display: inline-flex;
+	width: 99%;
+	padding:5px;
+}
