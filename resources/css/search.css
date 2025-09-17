@@ -1,0 +1,181 @@
+.search-container {
+	max-width: 800px;
+	margin: 20px auto;
+	font-family: Arial, sans-serif;
+}
+
+.search-header {
+	background-color: #f5f5f5;
+	padding: 15px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+.search-box {
+	display: flex;
+	margin-bottom: 15px;
+}
+
+#search-input {
+	flex: 1;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 4px 0 0 4px;
+}
+
+#search-button {
+	padding: 10px 15px;
+	background-color: #4285f4;
+	color: white;
+	border: none;
+	border-radius: 0 4px 4px 0;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+#search-button:hover {
+	background-color: #3367d6;
+}
+
+.filter-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	margin-bottom: 15px;
+}
+
+.filter-group {
+	flex: 1;
+	min-width: 200px;
+}
+
+.filter-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.filter-group select {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.search-results {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.result-item {
+	display: flex;
+	padding: 15px;
+	background-color: #fff;
+	border-bottom: 1px solid #bbb;
+	align-items: center;
+}
+
+.result-item:last-child {
+	border-bottom: none;
+}
+
+.result-item:hover {
+	background-color: #ddd;
+}
+
+.file-icon {
+	width: 40px;
+	height: 40px;
+	margin-right: 15px;
+	background-color: #e0e0e0;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	color: #555;
+}
+
+.file-info {
+	flex: 1;
+}
+
+.file-title {
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: #ab72aa;
+}
+
+.file-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	color: #70757a;
+	font-size: 14px;
+}
+
+.file-meta span {
+	display: flex;
+	align-items: center;
+}
+
+.file-meta i {
+	margin-right: 3px;
+	font-size: 12px;
+}
+
+.download-btn {
+	padding: 8px 15px;
+	background-color: #0099e6;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.download-btn:hover {
+	background-color: #0070a8;
+}
+
+.no-results {
+	background-color: #fff;
+	color: #aaa;
+	padding: 20px;
+	text-align: center;
+}
+
+.no-results:hover {
+	background-color: #ddd;
+}
+
+.pdf { background-color: #ffebee; color: #f44336; }
+.docx { background-color: #e3f2fd; color: #2196f3; }
+.pptx { background-color: #fff8e1; color: #ffc107; }
+.xlsx { background-color: #e8f5e9; color: #4caf50; }
+.zip { background-color: #f3e5f5; color: #9c27b0; }
+.txt { background-color: #efebe9; color: #795548; }
+
+.homework-list {
+    margin-top: 10px;
+}
+
+.homework-item {
+    margin-bottom: 8px;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.homework-item strong {
+    color: #333;
+}
+
+.homework-results {
+	background-color: #f5f5f5;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}

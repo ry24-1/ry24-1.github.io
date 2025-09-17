@@ -1,0 +1,102 @@
+[
+	{
+		"title": "七上作文集",
+		"filename": "作文集1.pdf",
+		"type": "pdf",
+		"subject": "chinese",
+		"size": "854KB",
+		"date": "2025-01-12",
+		"downloadUrl": "/files/chinese/作文集1.pdf",
+		"description": "《少年游》初一七年级上学期语文回忆"
+	},
+	{
+		"title": "七下作文集",
+		"filename": "作文集2.pdf",
+		"type": "pdf",
+		"subject": "chinese",
+		"size": "623KB",
+		"date": "2025-07-21",
+		"downloadUrl": "/files/chinese/作文集2.pdf",
+		"description": "《我们》初一七年级下学期语文回忆"
+	},
+	{
+		"title": "八上语文电子课本",
+		"filename": "电子课本8上语文.pdf",
+		"type": "pdf",
+		"subject": "chinese",
+		"size": "23.6MB",
+		"date": "2025-07-05",
+		"downloadUrl": "/files/chinese/电子课本8上语文.pdf",
+		"description": "初二八年级上册电子语文课本"
+	},
+	{
+		"title": "24-25北京各区期末试题",
+		"filename": "24-25北京各区期末试题.zip",
+		"type": "zip",
+		"subject": "math",
+		"size": "12.4MB",
+		"date": "2025-07-05",
+		"downloadUrl": "/files/math/24-25北京各区期末试题.zip",
+		"description": "初一七年级数学期末试题"
+	},
+	{
+		"title": "八上数学电子课本",
+		"filename": "2025秋人教版八年级数学上册（无水印版）.pdf",
+		"type": "pdf",
+		"subject": "math",
+		"size": "9MB",
+		"date": "2025-07-05",
+		"downloadUrl": "/files/math/2025秋人教版八年级数学上册（无水印版）.pdf",
+		"description": "初二八年级上册电子数学课本"
+	},
+	{
+		"title": "人大附中亦庄新城学校八年级数学假期作业反馈",
+		"filename": "人大附中亦庄新城学校八年级数学假期作业反馈.docx",
+		"type": "docx",
+		"subject": "math",
+		"size": "3.89MB",
+		"date": "2025-08-31",
+		"downloadUrl": "/files/math/人大附中亦庄新城学校八年级数学假期作业反馈.docx",
+		"description": "数学假期作业反馈考试试题"
+	},
+	{
+		"title": "八上英语单词表",
+		"filename": "八上单词表.zip",
+		"type": "zip",
+		"subject": "english",
+		"size": "2.68MB",
+		"date": "2025-07-21",
+		"downloadUrl": "/files/english/八上单词表.zip",
+		"description": "初二八年级上册英语单词表"
+	},
+	{
+		"title": "英语练习",
+		"filename": "9.1-9.3英语练习.docx",
+		"type": "docx",
+		"subject": "english",
+		"size": "546KB",
+		"date": "2025-08-31",
+		"downloadUrl": "/files/english/9.1-9.3英语练习.docx",
+		"description": "阅兵假期英语完形及阅读练习"
+	},
+	{
+		"title": "英语不规则动词表",
+		"filename": "英语不规则动词表.docx",
+		"type": "docx",
+		"subject": "english",
+		"size": "28KB",
+		"date": "2025-08-31",
+		"downloadUrl": "/files/english/英语不规则动词表.docx",
+		"description": "英语不规则动词表"
+	},
+	{
+		"title": "1班试用E卡账号密码",
+		"filename": "1班试用E卡账号密码.xlsx",
+		"type": "xlsx",
+		"subject": "english",
+		"size": "10.2KB",
+		"date": "2025-07-21",
+		"downloadUrl": "/files/english/1班试用E卡账号密码.xlsx",
+		"description": "1班试用英语E卡账号密码"
+	}
+]

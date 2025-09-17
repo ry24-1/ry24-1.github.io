@@ -1,0 +1,45 @@
+.box_n{
+	background-color: #c8d3d9;
+	color: white;
+	padding: 10px;
+	border-radius: 10px;
+	width: 250px;
+	height: 200px;
+	margin-bottom: 20px;
+	display: inline-block;
+	border-style: outset;
+}
+.box_i{
+	background-color: ;
+	color: black;
+	padding: 10px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	display: inline-block;
+}
+.box_s{
+	background-color: ;
+	color: black;
+	padding: 10px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	display: inline-block;
+}
+
+.gallery {
+	display: inline-block;
+	margin-top: 30px;
+	font-size: 0;
+	width: 98%;
+}
+
+.gallery img {
+	display: inline-block;
+	transition: all 0.4s;
+	cursor: pointer;
+}
+
+.gallery img:hover {
+	transform: scale(1.015);
+	z-index: 1000;
+}

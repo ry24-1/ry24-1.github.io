@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>人大附中亦庄新城学校2024级1班</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/resources/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 顶部导航栏样式 */
+        header {
+            background: linear-gradient(135deg, #1a6fc4 0%, #2c3e50 100%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .topnav {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .topnav li {
+            margin: 0;
+        }
+        
+        .topnav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 18px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+        
+        .topnav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .topnav a.active {
+            background-color: #ff9800;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .topnav a.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 3px;
+            background-color: white;
+        }
+        
+        /* 班级标题样式 */
+        .class-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to right, #1a6fc4, #2c3e50);
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .class-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .class-header img {
+            margin: 0 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .class-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* 轮播图样式 */
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            margin: 30px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mySlides {
+            display: none;
+        }
+        
+        .mySlides img {
+            width: 100%;
+            vertical-align: middle;
+            height: 450px;
+            object-fit: cover;
+        }
+        
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+        }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .dots {
+            text-align: center;
+            padding: 15px 0;
+        }
+        
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        
+        .active-dot, .dot:hover {
+            background-color: #1a6fc4;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card h2 {
+            color: #1a6fc4;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card h2 i {
+            margin-right: 10px;
+            color: #ff9800;
+        }
+        
+        /* 公告样式 */
+        .announcement-list {
+            list-style: none;
+        }
+        
+        .announcement-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .announcement-item:last-child {
+            border-bottom: none;
+        }
+        
+        .announcement-date {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+        
+        .announcement-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .announcement-content {
+            color: #555;
+        }
+        
+        /* 班级信息样式 */
+        .class-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-item i {
+            font-size: 2rem;
+            color: #1a6fc4;
+            margin-bottom: 10px;
+        }
+        
+        .info-item h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        /* 日历样式 */
+        .calendar {
+            width: 100%;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .calendar-table th {
+            padding: 10px;
+            text-align: center;
+            background-color: #f1f5f9;
+        }
+        
+        .calendar-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        
+        .calendar-table .today {
+            background-color: #1a6fc4;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calendar-table .event {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        /* 教师团队样式 */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .teacher-card {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .teacher-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #1a6fc4;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a6fc4 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        
+        .social-links {
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            margin: 0 8px;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul class="topnav">
+            <li><a class="active" href="/"><i class="fas fa-home"></i> 主页</a></li>
+            <li><a href="/files/"><i class="fas fa-folder"></i> 文件</a></li>
+            <li><a href="/gallery/"><i class="fas fa-images"></i> 图库</a></li>
+            <li><a href="/homework/"><i class="fas fa-tasks"></i> 作业</a></li>
+            <li><a href="/news/"><i class="fas fa-newspaper"></i> 新闻</a></li>
+            <li><a href="/subjects/"><i class="fas fa-book"></i> 学科</a></li>
+            <li><a href="/more/"><i class="fas fa-ellipsis-h"></i> 更多</a></li>
+            <li class="right"><a href="/about/"><i class="fas fa-info-circle"></i> 关于</a></li>
+        </ul>
+    </header>
+
+    <div class="class-header">
+        <h1>人大附中亦庄新城学校<img src="/resources/images/logo.png" width="90px">2024级1班</h1>
+        <p>团结、勤奋、求实、创新 - 我们的班级，我们的家</p>
+    </div>
+
+    <!-- 轮播图 -->
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="/resources/images/slide/1.jpg">
+            <div class="slide-caption">班级集体活动 - 秋季运动会</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/resources/images/slide/2.jpg">
+            <div class="slide-caption">课堂学习瞬间</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/resources/images/slide/3.jpg">
+            <div class="slide-caption">科技节作品展示</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/resources/images/slide/4.jpg">
+            <div class="slide-caption">校园艺术节表演</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/resources/images/slide/5.jpg">
+            <div class="slide-caption">班级团建活动</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/resources/images/slide/6.jpg">
+            <div class="slide-caption">课外实践活动</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+    <br>
+
+    <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+    </div>
+
+    <div class="main-content">
+        <div class="left-column">
+            <div class="card">
+                <h2><i class="fas fa-bullhorn"></i> 最新公告</h2>
+                <ul class="announcement-list">
+                    <li class="announcement-item">
+                        <div class="announcement-date">2023年10月15日</div>
+                        <div class="announcement-title">期中考试时间安排</div>
+                        <div class="announcement-content">期中考试将于11月5日-7日进行，请同学们提前做好准备。</div>
+                    </li>
+                    <li class="announcement-item">
+                        <div class="announcement-date">2023年10月10日</div>
+                        <div class="announcement-title">秋季运动会通知</div>
+                        <div class="announcement-content">学校将于10月25日举行秋季运动会，请同学们积极报名参加。</div>
+                    </li>
+                    <li class="announcement-item">
+                        <div class="announcement-date">2023年10月5日</div>
+                        <div class="announcement-title">家长会安排</div>
+                        <div class="announcement-content">本学期家长会将于10月20日下午2点在教室举行，请家长们准时参加。</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-images"></i> 班级风采</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <img src="/resources/images/slide/1.jpg" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                    <img src="/resources/images/slide/2.jpg" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                    <img src="/resources/images/slide/3.jpg" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                    <img src="/resources/images/slide/4.jpg" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                    <img src="/resources/images/slide/5.jpg" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                    <img src="/resources/images/slide/6.jpg" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="/gallery/" style="color: #1a6fc4; text-decoration: none; font-weight: bold;">
+                        <i class="fas fa-arrow-right"></i> 查看更多照片
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="card">
+                <h2><i class="fas fa-calendar-alt"></i> 活动日历</h2>
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <h3>2023年10月</h3>
+                    </div>
+                    <table class="calendar-table">
+                        <tr>
+                            <th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th>
+                        </tr>
+                        <tr>
+                            <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td class="event">6</td><td>7</td>
+                        </tr>
+                        <tr>
+                            <td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td>
+                        </tr>
+                        <tr>
+                            <td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td class="event">20</td><td>21</td>
+                        </tr>
+                        <tr>
+                            <td>22</td><td>23</td><td>24</td><td class="event">25</td><td>26</td><td>27</td><td>28</td>
+                        </tr>
+                        <tr>
+                            <td>29</td><td>30</td><td>31</td><td></td><td></td><td></td><td></td>
+                        </tr>
+                    </table>
+                    <div style="margin-top: 15px;">
+                        <div><span style="background-color: #1a6fc4; display: inline-block; width: 12px; height: 12px; border-radius: 50%;"></span> 今天</div>
+                        <div><span style="color: #ff9800; font-weight: bold;">橙色日期</span> 重要活动</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-info-circle"></i> 班级信息</h2>
+                <div class="class-info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <h3>班级人数</h3>
+                        <p>42人</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-user-tie"></i>
+                        <h3>班主任</h3>
+                        <p>张老师</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-star"></i>
+                        <h3>班级口号</h3>
+                        <p>团结拼搏，追求卓越</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-trophy"></i>
+                        <h3>班级荣誉</h3>
+                        <p>校级优秀班级</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-qq"></i></a>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <a href="#">联系方式</a>
+            <a href="#">网站地图</a>
+            <a href="#">隐私政策</a>
+        </div>
+        
+        <div class="copyright">
+            <p>版权所有 &copy; 2023-2025 人大附中亦庄新城学校2024级1班</p>
+            <p>地址：北京市大兴区亦庄新城 | 电话：010-XXXXXXX</p>
+        </div>
+    </footer>
+
+    <script>
+        // 轮播图功能
+        let slideIndex = 0;
+        showSlides();
+        
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            
+            slideIndex++;
+            
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }  
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active-dot", "");
+            }
+            
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active-dot";
+            
+            setTimeout(showSlides, 4000); // 每4秒切换一次
+        }
+        
+        function plusSlides(n) {
+            slideIndex += n - 1;
+            showSlides();
+        }
+        
+        function currentSlide(n) {
+            slideIndex = n - 1;
+            showSlides();
+        }
+    </script>
+</body>
+</html>

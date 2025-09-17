@@ -7,26 +7,282 @@
 		<link rel="shortcut icon" href="/resources/images/logo.png">
 		<link rel="stylesheet" href="/resources/css/header.css">
 		<link rel="stylesheet" href="/resources/css/paragraph.css">
-		<link rel="stylesheet" href="/resources/css/aside.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<style>        
+			.container {
+				max-width: 1200px;
+				margin: 20px auto;
+				padding: 0 20px;
+			}
+			.features-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 25px;
+				margin-bottom: 50px;
+			}
+			.feature-card {
+				background: white;
+				border-radius: 12px;
+				padding: 25px;
+				box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+				transition: transform 0.3s, box-shadow 0.3s;
+				text-align: left;
+			}
+			.feature-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+			}
+			.feature-card h3 {
+				color: #4c4a7a;
+				margin-top: 0;
+				padding-bottom: 15px;
+				border-bottom: 2px solid #ff7b54;
+				display: flex;
+				align-items: center;
+			}
+			.feature-card h3 i {
+				margin-right: 10px;
+				font-size: 1.4rem;
+			}
+			.feature-content { min-height: 120px; }
+			.btn {
+				display: inline-block;
+				background-color: #ff7b54;
+				color: white;
+				padding: 10px 20px;
+				border-radius: 50px;
+				text-decoration: none;
+				font-weight: bold;
+				margin-top: 15px;
+				transition: background-color 0.3s;
+			}
+			.btn:hover { background-color: #ff5c2e; }
+			.calendar-grid {
+				display: grid;
+				grid-template-columns: repeat(7, 1fr);
+				gap: 5px;
+				margin-top: 15px;
+			}
+			.calendar-day {
+				padding: 8px;
+				border-radius: 8px;
+				background-color: #f0f0ff;
+			}
+			.calendar-day.event {
+				background-color: #ffd8cc;
+				font-weight: bold;
+			}
+			.calendar-header {
+				font-weight: bold;
+				background-color: #e4e2ff;
+				padding: 8px;
+				border-radius: 8px;
+			}
+			.log-entry {
+				border-left: 3px solid #ff7b54;
+				padding-left: 15px;
+				margin-bottom: 15px;
+			}
+			.log-date {
+				font-weight: bold;
+				color: #4c4a7a;
+			}
+			.honor-item {
+				display: flex;
+				align-items: center;
+				margin-bottom: 15px;
+			}
+			.honor-badge {
+				width: 40px;
+				height: 40px;
+				background-color: #ffd8cc;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-right: 15px;
+				flex-shrink: 0;
+			}
+			.project-showcase {
+				border: 1px solid #e4e2ff;
+				border-radius: 8px;
+				padding: 15px;
+				margin-bottom: 15px;
+			}
+			.project-title {
+				font-weight: bold;
+				color: #4c4a7a;
+			}
+			.star {
+				color: #ffb800;
+				margin-right: 3px;
+			}
+			@media (max-width: 768px) {
+				.features-grid { grid-template-columns: 1fr; }
+				.topnav a {
+					padding: 14px 12px;
+					font-size: 14px;
+				}
+			}
+		</style>
 	</head>
-	<body style="background-color: #d4d2ff;">
+	<body>
 		<header>
-			<img src="/resources/images/class_logo.png" width="45px"/>
-			<p>人大附中亦庄新城学校2024级1班--------------------班级网站--------------------2025.5.25</p>
+			<ul class="topnav">
+				<li><a class="active" href="/">主页</a></li>
+				<li><a href="/files/">文件</a></li>
+				<li><a href="/gallery/">图库</a></li>
+				<li><a href="/homework/">作业</a></li>
+				<li><a href="/news/">新闻</a></li>
+				<li><a href="/subjects/">学科</a></li>
+				<li><a href="/more/">更多</a></li>
+				<li class="right"><a href="/about/">关于</a></li>
+			</ul>
 		</header>
-		<aside>
-			<b>
-				<a href="/"><p>主页</p></a>
-				<a href="/subjects/"><p>学科汇</p></a>
-				<a href="/news/"><p>大事记</p></a>
-				<a href="/homework/"><p>作业板</p></a>
-				<a href="/files/"><p>文件夹</p></a>
-				<a href="/gallery/"><p>班图床</p></a>
-				<a href="/more/"><p>百宝箱</p></a>
-				<a href="/setting/"><p>设置</p></a>
-				<a href="/about/"><p>关于</p></a>
-			</b>
-		</aside>
-		
+		<div class="container">
+			<p style="font-weight: bold; font-size: 35px;">网站百宝箱</p>
+			<div class="features-grid">
+				<div class="feature-card">
+					<h3><i class="fas fa-book"></i> 班级日志</h3>
+					<div class="feature-content">
+						<div class="log-entry">
+							<div class="log-date">5月20日</div>
+							<p>今天举行了班级辩论赛，同学们表现非常出色，展现了优秀的思辨能力。</p>
+						</div>
+						<div class="log-entry">
+							<div class="log-date">5月18日</div>
+							<p>春季运动会圆满结束，我班获得团体总分第二名的好成绩！</p>
+						</div>
+					</div>
+					<a href="/more/class_log/" class="btn">查看完整日志</a>
+				</div>
+				<div class="feature-card">
+					<h3><i class="fas fa-trophy"></i> 荣誉墙</h3>
+					<div class="feature-content">
+						<div class="honor-item">
+							<div class="honor-badge"><i class="fas fa-medal"></i></div>
+							<div>2024年校级运动会团体总分亚军</div>
+						</div>
+						<div class="honor-item">
+							<div class="honor-badge"><i class="fas fa-medal"></i></div>
+							<div>五月"文明班级"流动红旗获得者</div>
+						</div>
+						<div class="honor-item">
+							<div class="honor-badge"><i class="fas fa-medal"></i></div>
+							<div>数学竞赛三等奖：李明、王华</div>
+						</div>
+					</div>
+					<a href="/more/honors/" class="btn">更多荣誉</a>
+				</div>
+				<div class="feature-card">
+					<h3><i class="fas fa-calendar-alt"></i> 校历</h3>
+					<div class="feature-content">
+						<div style="text-align: center; font-weight: bold; margin-bottom: 10px;">2025年9月</div>
+						<div class="calendar-grid">
+							<div class="calendar-header">日</div>
+							<div class="calendar-header">一</div>
+							<div class="calendar-header">二</div>
+							<div class="calendar-header">三</div>
+							<div class="calendar-header">四</div>
+							<div class="calendar-header">五</div>
+							<div class="calendar-header">六</div>
+							<div class="calendar-day"></div>
+							<div class="calendar-day event" title="开学啦！">1</div>
+							<div class="calendar-day">2</div>
+							<div class="calendar-day">3</div>
+							<div class="calendar-day">4</div>
+							<div class="calendar-day">5</div>
+							<div class="calendar-day">6</div>
+							<div class="calendar-day">7</div>
+							<div class="calendar-day">8</div>
+							<div class="calendar-day">9</div>
+							<div class="calendar-day">10</div>
+							<div class="calendar-day">11</div>
+							<div class="calendar-day">12</div>
+							<div class="calendar-day">13</div>
+							<div class="calendar-day">14</div>
+							<div class="calendar-day">15</div>
+							<div class="calendar-day">16</div>
+							<div class="calendar-day">17</div>
+							<div class="calendar-day">18</div>
+							<div class="calendar-day">19</div>
+							<div class="calendar-day">20</div>
+						</div>
+					</div>
+					<a href="/more/calendar/" class="btn">查看完整校历</a>
+				</div>
+				<div class="feature-card">
+					<h3><i class="fas fa-star"></i> 名人堂</h3>
+					<div class="feature-content">
+						<div style="text-align: center; margin-bottom: 15px;">
+							<div style="font-weight: bold; color: #4c4a7a;">五月之星</div>
+							<div style="font-size: 0.9rem;">月度优秀学生展示</div>
+						</div>
+						<div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+							<div style="text-align: center; margin: 10px;">
+								<div style="width: 60px; height: 60px; border-radius: 50%; background-color: #e4e2ff; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">张</div>
+								<div style="margin-top: 5px;">张伟</div>
+								<div style="font-size: 0.8rem;">学习标兵</div>
+							</div>
+							<div style="text-align: center; margin: 10px;">
+								<div style="width: 60px; height: 60px; border-radius: 50%; background-color: #e4e2ff; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">李</div>
+								<div style="margin-top: 5px;">李娜</div>
+								<div style="font-size: 0.8rem;">进步之星</div>
+							</div>
+							<div style="text-align: center; margin: 10px;">
+								<div style="width: 60px; height: 60px; border-radius: 50%; background-color: #e4e2ff; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">王</div>
+								<div style="margin-top: 5px;">王涛</div>
+								<div style="font-size: 0.8rem;">体育健将</div>
+							</div>
+						</div>
+					</div>
+					<a href="/more/fame/" class="btn">了解更多</a>
+				</div>
+				<div class="feature-card">
+					<h3><i class="fas fa-project-diagram"></i> 项目长廊</h3>
+					<div class="feature-content">
+						<div class="project-showcase">
+							<div class="project-title">环保科技创新项目</div>
+							<div>小组：绿色未来团队</div>
+							<div>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">☆</span>
+							</div>
+						</div>
+						<div class="project-showcase">
+							<div class="project-title">中国历史人物研究报告</div>
+							<div>小组：历史探索者</div>
+							<div>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+								<span class="star">★</span>
+							</div>
+						</div>
+					</div>
+					<a href="/more/projects/" class="btn">浏览所有项目</a>
+				</div>
+				<div class="feature-card">
+					<h3><i class="fas fa-info-circle"></i> 网站指南</h3>
+					<div class="feature-content">
+						<p>欢迎使用班级网站！以下是一些快速指南：</p>
+						<ul style="text-align: left; padding-left: 20px;">
+							<li>使用顶部导航访问不同板块</li>
+							<li>班级日志每日更新</li>
+							<li>作业区每周五更新下周任务</li>
+							<li>有问题请联系班长或班主任</li>
+						</ul>
+					</div>
+					<a href="/more/guide/" class="btn">详细指南</a>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<p>版权所有 &copy; 2025 人大附中亦庄新城学校2024级1班</p>
+		</footer>
 	</body>
 </html>

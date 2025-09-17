@@ -7,26 +7,82 @@
 		<link rel="shortcut icon" href="/resources/images/logo.png">
 		<link rel="stylesheet" href="/resources/css/header.css">
 		<link rel="stylesheet" href="/resources/css/paragraph.css">
-		<link rel="stylesheet" href="/resources/css/aside.css">
+		<link rel="stylesheet" href="/resources/css/search.css">
 	</head>
-	<body style="background-color: #d4d2ff;">
-		<header>
-			<img src="/resources/images/class_logo.png" width="45px"/>
-			<p>人大附中亦庄新城学校2024级1班--------------------班级网站--------------------2025.5.25</p>
-		</header>
-		<aside>
-			<b>
-				<a href="/"><p>主页</p></a>
-				<a href="/subjects/"><p>学科汇</p></a>
-				<a href="/news/"><p>大事记</p></a>
-				<a href="/homework/"><p>作业板</p></a>
-				<a href="/files/"><p>文件夹</p></a>
-				<a href="/gallery/"><p>班图床</p></a>
-				<a href="/more/"><p>百宝箱</p></a>
-				<a href="/setting/"><p>设置</p></a>
-				<a href="/about/"><p>关于</p></a>
-			</b>
-		</aside>
-		
+	<body style="background-color: #d4d2ff; text-align: center;">
+	<header>
+		<ul class="topnav">
+			<li><a class="active" href="/">主页</a></li>
+			<li><a href="/files/">文件</a></li>
+			<li><a href="/gallery/">图库</a></li>
+			<li><a href="/homework/">作业</a></li>
+			<li><a href="/news/">新闻</a></li>
+			<li><a href="/subjects/">学科</a></li>
+			<li><a href="/more/">更多</a></li>
+			<li class="right"><a href="/about/">关于</a></li>
+		</ul>
+	</header>
+		<div class="search-container">
+			<div class="search-header">
+				<p style="font-weight: bold; font-size: 30px;">班级作业查询系统</p>
+				<p>请依据日期进行检索（注：本站仅保存2025学年第1学期及往后信息，<br>介于班级特殊性，作业信息上传可能出现延误、有纰漏等问题，望谅解）</p>
+			</div>
+			<div class="search-box">
+				<input type="date" id="search-input" min="2025-09-01" max="2027-08-31">
+				<button id="search-button">查询</button>
+			</div>
+			<div id="search-results" class="homework-results" style="display: none;"></div>
+		</div>
+		<footer style="position: absolute; bottom: 0; width: 100%;">
+			<p>版权所有 &copy; 2025 人大附中亦庄新城学校2024级1班</p>
+		</footer>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+			    const searchButton = document.getElementById('search-button');
+			    const searchInput = document.getElementById('search-input');
+			    const searchResults = document.getElementById('search-results');
+			    searchButton.addEventListener('click', function() {
+			        const selectedDate = searchInput.value;
+			        if (!selectedDate) {
+			            searchResults.innerHTML = '请选择日期';
+			            searchResults.style.display = 'block';
+			            return;
+			        }
+			        const dateObj = new Date(selectedDate);
+			        const year = dateObj.getFullYear();
+			        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+			        const day = String(dateObj.getDate()).padStart(2, '0');
+			        const filePath = `/resources/homework/${`${year}-${month}`}/${day}.json`;
+			        fetch(filePath)
+			            .then(response => {
+			                if (!response.ok) {
+			                    throw new Error('未查询到当日信息');
+			                }
+			                return response.json();
+			            })
+			            .then(data => {
+			                const filteredHomework = Object.entries(data)
+			                    .filter(([subject, homework]) => homework && homework.trim() !== "");
+			                if (filteredHomework.length === 0) {
+			                    searchResults.innerHTML = '未查询到当日信息';
+			                } else {
+			                    let html = '<div class="homework-list">';
+			                    filteredHomework.forEach(([subject, homework]) => {
+			                        html += `<div class="homework-item">
+			                                    <strong>${subject}:</strong> ${homework}
+			                                  </div>`;
+			                    });
+			                    html += '</div>';
+			                    searchResults.innerHTML = html;
+			                }
+			                searchResults.style.display = 'block';
+			            })
+			            .catch(error => {
+			                searchResults.innerHTML = error.message;
+			                searchResults.style.display = 'block';
+			            });
+			    });
+			});
+		</script>
 	</body>
 </html>

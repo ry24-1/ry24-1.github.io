@@ -6,3 +6,18 @@
 p{
 	font-family: fs;
 }
+
+footer {
+	margin-top: 20px;
+	padding: 20px;
+	background: #2c3e50;
+	color: #fff;
+}
+
+body {
+	background-color: #d4d2ff; 
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	color: #333;
+}
