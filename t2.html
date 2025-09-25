@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班级留言板 - 2024级1班</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* ===== 基础样式重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --success-color: #4cc9f0;
+            --warning-color: #fca311;
+            --light-bg: #f8f9fa;
+            --dark-bg: #2b2d42;
+            --text-primary: #2b2d42;
+            --text-secondary: #6c757d;
+            --text-light: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --gradient-accent: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            background-attachment: fixed;
+        }
+
+        /* ===== 布局容器 ===== */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== 头部样式 ===== */
+        .header {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        /* ===== 按钮样式 ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: 0 5px 15px rgba(247, 37, 133, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* ===== 主要内容区域 ===== */
+        .content {
+            padding: 40px 30px;
+        }
+
+        /* ===== 统计卡片 ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* ===== 添加留言表单 ===== */
+        .add-message-form {
+            background: var(--light-bg);
+            padding: 35px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        textarea.form-control {
+            min-height: 140px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ===== 留言列表 ===== */
+        .messages-container {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .messages-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        /* ===== 留言卡片 ===== */
+        .message-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .message-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .message-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+
+        .author-class {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .message-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background: var(--light-bg);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .message-content {
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .message-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .message-type {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .type-question {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .type-share {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .type-suggestion {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            background: var(--light-bg);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.liked {
+            color: var(--accent-color);
+        }
+
+        /* ===== 加载和空状态 ===== */
+        .loading, .empty-state, .error-state {
+            text-align: center;
+            padding: 60px 40px;
+            color: var(--text-secondary);
+        }
+
+        .loading i, .empty-state i, .error-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .loading {
+            color: var(--primary-color);
+        }
+
+        .error-state {
+            color: #dc3545;
+        }
+
+        /* ===== 响应式设计 ===== */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .form-grid { grid-template-columns: 1fr; }
+            .message-header { flex-direction: column; }
+            
+            .message-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .message-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        .notification.show { transform: translateX(0); }
+        .notification.success { background: var(--success-color); }
+        .notification.error { background: var(--accent-color); }
+		.like-count {
+		    background: var(--accent-color);
+		    color: white;
+		    padding: 2px 8px;
+		    border-radius: 12px;
+		    font-size: 0.8rem;
+		    margin-left: 5px;
+		}
+		.like-btn:hover .like-count { background: var(--secondary-color); }
+    </style>
+</head>
+<body>
+    <div id="notification" class="notification"></div>
+    <div class="container">
+        <div class="header">
+            <h1>📝 班级留言板</h1>
+            <p>分享想法 • 交流心得 • 共建班级文化</p>
+            <div class="header-actions">
+                <a href="/" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> 返回首页
+                </a>
+                <button class="btn btn-primary" onclick="scrollToForm()">
+                    <i class="fas fa-plus"></i> 我要留言
+                </button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-messages">0</div>
+                    <div class="stat-label">总留言数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="today-messages">0</div>
+                    <div class="stat-label">今日留言</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="active-users">0</div>
+                    <div class="stat-label">参与同学</div>
+                </div>
+            </div>
+            <div class="add-message-form" id="message-form-section">
+                <h2 class="form-title">✏️ 发表你的留言</h2>
+                <form id="message-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+						    <label for="author"><i class="fas fa-user"></i> 昵称</label>
+						    <input type="text" id="author" class="form-control" required placeholder="请输入昵称" maxlength="20">
+						</div>
+						<div class="form-group">
+						    <label for="type"><i class="far fa-building"></i> 班级</label>
+						    <input type="text" id="cg" class="form-control" required placeholder="请输入班级（如2024级1班）" maxlength="10">
+						</div>
+                        <div class="form-group">
+                            <label for="type"><i class="fas fa-tag"></i> 留言类型</label>
+                            <select id="type" class="form-control" required>
+                                <option value="question">❓ 问题求助</option>
+                                <option value="share">💡 经验分享</option>
+                                <option value="suggestion">📋 建议反馈</option>
+								<option value="research">🔍 学术研究</option>
+								<option value="others">🌐 其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content"><i class="fas fa-comment"></i> 留言内容</label>
+                        <textarea id="content" class="form-control" required placeholder="分享你的想法、问题或建议..." maxlength="500"></textarea>
+                        <div class="char-count" style="text-align: right; margin-top: 5px; color: var(--text-secondary); font-size: 0.9rem;">
+                            <span id="char-counter">0</span>/500
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <i class="fas fa-paper-plane"></i> 发布留言
+                    </button>
+                </form>
+            </div>
+            <div class="messages-container">
+                <h2 class="section-title">💬 最新留言</h2>
+                <div class="messages-grid" id="messages-list">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>正在加载留言...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const SUPABASE_URL = 'https://idfvdeujsfaemiieihmb.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlkZnZkZXVqc2ZhZW1paWVpaG1iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg2OTkwMTMsImV4cCI6MjA3NDI3NTAxM30.SV22TpTweV1w4VVDPias74cw1l1tCJTXTtK8MeG0MqY';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let messages = [];
+        let likes = JSON.parse(localStorage.getItem('messageLikes')) || {};
+		document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+        async function initializeApp() {
+            try {
+                await loadMessages();
+                setupEventListeners();
+                setupRealtimeSubscription();
+            } catch (error) {
+                showError('初始化失败: ' + error.message);
+            }
+        }
+        function setupEventListeners() {
+            document.getElementById('message-form').addEventListener('submit', handleFormSubmit);
+            document.getElementById('content').addEventListener('input', updateCharCount);
+            updateCharCount();
+        }
+        function updateCharCount() {
+            const content = document.getElementById('content').value;
+            document.getElementById('char-counter').textContent = content.length;
+        }
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-btn');
+            const author = document.getElementById('author').value.trim();
+			const cg = document.getElementById('cg').value.trim();
+            const content = document.getElementById('content').value.trim();
+            const type = document.getElementById('type').value;
+            if (!author || !cg || !content) {
+                showNotification('请填写完整信息', 'error');
+                return;
+            }
+            if (content.length < 5) {
+                showNotification('留言内容至少5个字符', 'error');
+                return;
+            }
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 发布中...';
+                const { data, error } = await supabase
+                    .from('messages')
+                    .insert([
+                        {
+                            author: author,
+                            content: content,
+                            type: type,
+                            class: cg
+                        }
+                    ])
+                    .select();
+                if (error) throw error;
+                document.getElementById('message-form').reset();
+                updateCharCount();
+                showNotification('留言发布成功！', 'success');
+            } catch (error) {
+                console.error('发布失败:', error);
+                showNotification('发布失败: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 发布留言';
+            }
+        }
+        async function loadMessages() {
+            try {
+                const { data, error } = await supabase
+                    .from('messages')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                if (error) throw error;
+                messages = data || [];
+                displayMessages();
+                updateStatistics();
+            } catch (error) {
+                console.error('加载留言失败:', error);
+                showError('加载留言失败: ' + error.message);
+            }
+        }
+		function setupRealtimeSubscription() {
+		    const channel = supabase
+		        .channel('messages-changes')
+		        .on(
+		            'postgres_changes',
+		            {
+		                event: '*',
+		                schema: 'public',
+		                table: 'messages'
+		            },
+		            (payload) => {
+		                console.log('收到实时更新:', payload);
+		                if (payload.eventType === 'INSERT') {
+		                    messages.unshift(payload.new);
+		                    displayMessages();
+		                    updateStatistics();
+		                    showNotification('有新留言！', 'success');
+		                }
+		            }
+		        )
+		        .subscribe((status) => {
+		            console.log('实时订阅状态:', status);
+		            if (status === 'SUBSCRIBED') {
+		                console.log('实时订阅已连接');
+		            }
+		        });
+		    return channel;
+		}
+        function displayMessages() {
+            const container = document.getElementById('messages-list');
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <h3>还没有留言</h3>
+                        <p>成为第一个留言的人吧！</p>
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = messages.map(message => `
+                <div class="message-card" data-message-id="${message.id}">
+                    <div class="message-header">
+                        <div class="message-author">
+                            <div class="author-avatar">${message.author.charAt(0)}</div>
+                            <div class="author-info">
+                                <div class="author-name">${message.author}</div>
+                                <div class="author-class">${message.class}</div>
+                            </div>
+                        </div>
+                        <div class="message-date">${formatDate(message.created_at)}</div>
+                    </div>
+                    <div class="message-content">${escapeHtml(message.content)}</div>
+                    <div class="message-footer">
+                        <span class="message-type ${message.type}">
+                            ${getTypeLabel(message.type)}
+                        </span>
+                        <div class="message-actions">
+                            <button class="action-btn like-btn" onclick="toggleLike(${message.id})">
+                                <i class="far fa-thumbs-up"></i> 
+                                点赞 <span class="like-count">${message.likes_count || 0}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        async function toggleLike(messageId) {
+            try {
+                const message = messages.find(msg => msg.id === messageId);
+                const currentLikes = message.likes_count || 0;
+                const { error } = await supabase
+                    .from('messages')
+                    .update({ likes_count: currentLikes + 1 })
+                    .eq('id', messageId);
+                if (error) throw error;
+                message.likes_count = currentLikes + 1;
+                displayMessages();
+                showNotification('点赞成功！', 'success');
+            } catch (error) {
+                console.error('点赞失败:', error);
+                showNotification('点赞失败', 'error');
+            }
+        }
+        function updateStatistics() {
+            const today = new Date().toDateString();
+            const todayMessages = messages.filter(msg => 
+                new Date(msg.created_at).toDateString() === today
+            ).length;
+            const uniqueAuthors = new Set(messages.map(msg => msg.author)).size;
+            document.getElementById('total-messages').textContent = messages.length;
+            document.getElementById('today-messages').textContent = todayMessages;
+            document.getElementById('active-users').textContent = uniqueAuthors;
+        }
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / (1000 * 60));
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            if (diffMins < 1) return '刚刚';
+            if (diffMins < 60) return `${diffMins}分钟前`;
+            if (diffHours < 24) return `${diffHours}小时前`;
+            
+            return date.toLocaleDateString('zh-CN') + ' ' + date.toLocaleTimeString('zh-CN', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        }
+        function getTypeLabel(type) {
+            const labels = {
+                'question': '❓ 问题求助',
+                'share': '💡 经验分享',
+                'suggestion': '📋 建议反馈',
+				'research': '🔍 学术研究',
+				'others': '🌐 其他'
+            };
+            return labels[type] || '▯ Unknow';
+        }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        function scrollToForm() {
+            document.getElementById('message-form-section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        function showError(message) {
+            const container = document.getElementById('messages-list');
+            container.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>加载失败</h3>
+                    <p>${message}</p>
+                    <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 15px;">
+                        <i class="fas fa-redo"></i> 重新加载
+                    </button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
