@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+	<div id="container">请等待...</div>
+    <script>
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+		async function getURLSource(url) {
+			const proxies = [
+				'https://api.codetabs.com/v1/proxy?quest=',
+				'https://corsproxy.io/?',
+				'https://proxy.cors.sh/',
+				'https://cors-proxy.htmldriven.com/?url='
+			];
+			for (let proxy of proxies) {
+				try {
+					console.log(`尝试代理: ${proxy}`);
+					const response = await fetch(proxy + url);
+					if (response.ok) {
+						return await response.text();
+					}
+				} catch (error) {
+					console.warn(`代理 ${proxy} 失败:`, error.message);
+					continue;
+				}
+			}
+			throw new Error('所有代理服务器都失败了');
+		}
+		async function loadPage() {
+            const pageId = getUrlParameter('id');
+            const container = document.getElementById('container');
+            if (!pageId) {
+                showError('未提供页面ID');
+                return;
+            }
+			try {
+				const supabaseUrl = `https://idfvdeujsfaemiieihmb.supabase.co/storage/v1/object/public/html-projects/projects/${pageId}.html`;
+                const response = await fetch(supabaseUrl, { method: 'HEAD' });
+                if (!response.ok) { throw new Error('页面不存在或无法访问'); }
+				const htmlcode = await getURLSource(supabaseUrl);
+				console.log(htmlcode);
+				container.innerHTML = htmlcode;
+			} catch (error) {
+				console.error('加载页面失败:', error);
+			}
+        }
+        document.addEventListener('DOMContentLoaded', loadPage);
+    </script>
+</body>
+</html>
