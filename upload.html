@@ -320,8 +320,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>🚀 HTML代码提交系统</h1>
-            <p class="subtitle">分享你的创意，与同学们互相欣赏</p>
+            <h1>🚀 HTML作业代码提交系统</h1>
+            <p class="subtitle">国庆作业，一定要写！</p>
         </header>
         <div class="card">
             <h2>提交你的HTML页面</h2>
@@ -361,7 +361,7 @@
                 </div>
                 <div class="action-buttons">
                     <button class="btn btn-print" onclick="printSubmission()">
-                        🖨️ 打印凭证
+                        🖨️ 提交凭证
                     </button>
                     <button class="btn btn-qr" onclick="downloadQRCode()">
                         📥 下载二维码
@@ -492,10 +492,10 @@
         function showResult(project) {
             currentProject = project;
             document.getElementById('result-title').textContent = project.pageTitle;
-            const showPageUrl = `https://ry24-1/show.html?id=${project.projectId}`;
+            const showPageUrl = `https://ry24-1.github.io/show.html?id=${project.projectId}`;
             const urlElement = document.getElementById('result-url');
             urlElement.href = showPageUrl;
-            urlElement.textContent = `${window.location.origin}${showPageUrl}`;
+            urlElement.textContent = showPageUrl;
             document.getElementById('result-section').style.display = 'block';
             generateQRCode(showPageUrl, 'qr-code');
             document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
@@ -552,7 +552,7 @@
                         <a href="show.html?id=${submission.project_id}" target="_blank">🔗 访问页面</a>
                     </td>
                     <td class="action-cell">
-                        <button class="action-btn" onclick="showQRCode('show.html?id=${submission.project_id}', '${submission.page_title}')" title="查看二维码">
+                        <button class="action-btn" onclick="showQRCode('https://ry24-1.github.io/show.html?id=${submission.project_id}', '${submission.page_title}')" title="查看二维码">
                             📶
                         </button>
                         <button class="action-btn" onclick="previewPage('show.html?id=${submission.project_id}')" title="预览页面">
@@ -579,47 +579,30 @@
         }
         function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
         function printSubmission() {
-            if (!currentProject) return;
+			if (!currentProject) return;
             const printContent = `
                 <div style="padding: 30px; font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">HTML页面提交凭证</h1>
+                    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">HTML作业提交凭证</h1>
                     <div style="margin: 20px 0;">
                         <p><strong>页面标题：</strong>${currentProject.pageTitle}</p>
                         <p><strong>提交时间：</strong>${new Date(currentProject.submittedAt).toLocaleString()}</p>
-                        <p><strong>访问链接：</strong>${currentProject.fileUrl}</p>
+                        <p><strong>源码链接：</strong>${currentProject.fileUrl}</p>
+						<p><strong>访问地址：</strong>${'https://ry24-1.github.io/show.html?id=' + currentProject.projectId}</p>
                     </div>
-                    <div style="text-align: center; margin: 30px 0;">
-                        <h3>扫描二维码访问</h3>
-                        <div id="print-qr" style="display: inline-block; padding: 15px; background: white; border: 1px solid #ddd;"></div>
-                    </div>
-                    <p style="text-align: center; margin-top: 30px; font-size: 12px; color: #7f8c8d;">
-                        由HTML代码提交系统生成
+					<p style="text-align: center; margin-top: 30px; font-size: 12px; color: #7f8c8d;">
+                        由ry24-1.github.io生成
                     </p>
                 </div>
             `;
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
+			printWindow.document.write(`
                 <html>
                     <head>
-                        <title>打印提交凭证</title>
+                        <title>提交凭证</title>
                     </head>
                     <body>${printContent}</body>
                 </html>
             `);
-            printWindow.onload = function() {
-                QRCode.toCanvas(currentProject.fileUrl, { 
-                    width: 150,
-                    height: 150
-                }, function(err, canvas) {
-                    if (!err) {
-                        printWindow.document.getElementById('print-qr').appendChild(canvas);
-                    }
-                    printWindow.print();
-                    printWindow.onafterprint = function() {
-                        printWindow.close();
-                    };
-                });
-            };
         }
         function downloadQRCode() {
             if (!currentProject) return;

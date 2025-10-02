@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-	<div id="container">请等待...</div>
+	加载中，请等待...
     <script>
         function getUrlParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -41,7 +41,6 @@
 		}
 		async function loadPage() {
             const pageId = getUrlParameter('id');
-            const container = document.getElementById('container');
             if (!pageId) {
                 showError('未提供页面ID');
                 return;
@@ -51,8 +50,9 @@
                 const response = await fetch(supabaseUrl, { method: 'HEAD' });
                 if (!response.ok) { throw new Error('页面不存在或无法访问'); }
 				const htmlcode = await getURLSource(supabaseUrl);
+				const printWindow = window.open('','_self');
+				printWindow.document.write(htmlcode);
 				console.log(htmlcode);
-				container.innerHTML = htmlcode;
 			} catch (error) {
 				console.error('加载页面失败:', error);
 			}
